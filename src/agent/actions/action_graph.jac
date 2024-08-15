@@ -8,6 +8,10 @@ node action {
     has anchors: list = [];
     has enabled: bool = True;
 
+    can touch;
+    # can execute;
+    # can pulse;
+
 }
 
 node exit_action :action: {

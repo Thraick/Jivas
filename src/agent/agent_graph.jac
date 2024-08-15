@@ -1,7 +1,7 @@
 import:py yaml;
 import:py modules.utils as utils;
-import:jac from action.action_graph, actions, action, exit_action;
 import:jac from memory.memory_graph, memory;
+import:jac actions.action_graph_lib;
 
 glob descriptor_root = "/jivas-data/";
 
