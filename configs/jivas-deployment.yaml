@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jivas-pv
+  namespace: jivas
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/jivas         # This is an example. Change it according to your preference.
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jivas-pvc
+  namespace: jivas
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jivas
+  namespace: jivas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jivas
+  template:
+    metadata:
+      labels:
+        app: jivas
+    spec:
+      containers:
+        - name: jivas
+          image: jivas
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_HOST
+              value: "mongodb://mongodb-0.mongodb-headless.jivas.svc.cluster.local:27017,mongodb-0.mongodb-headless.jivas.svc.cluster.local:27017/?replicaSet=rs0"
+            - name: DATABASE_NAME
+              value: "test_db"
+            - name: REDIS_HOST
+              value: "redis://redis"
+            - name: REDIS_PORT
+              value: "6379"
+          volumeMounts:
+            - mountPath: /jivas-data
+              name: jivas-storage
+      volumes:
+        - name: jivas-storage
+          persistentVolumeClaim:
+            claimName: jivas-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jivas
+  namespace: jivas
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: jivas

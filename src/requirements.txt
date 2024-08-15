@@ -1,0 +1,24 @@
+jaclang-jaseci @ git+https://github.com/V75inc/jaclang-jaseci.git@jaseci/v1.0.2
+torch==2.3.1
+transformers==4.26.1
+nltk==3.8.1
+langchain==0.2.6
+openai==1.35.7
+gunicorn==20.1.0
+whisper-timestamped==1.12.20
+gspread==5.10.0
+google-api-python-client==2.97.0
+kor==1.0.1
+cohere==4.32
+boto3==1.28.15
+langchain-community==0.2.6
+langchain-core==0.2.10
+langchain_openai==0.1.13
+langchain-experimental==0.0.62
+pypdf==4.2.0
+unstructured==0.14.9
+unstructured-client==0.23.8
+spacy==3.7.2
+pyyaml==6.0.1
+qrcode==7.4.2
+pandas==1.5.3

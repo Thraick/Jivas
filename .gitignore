@@ -1,0 +1,7 @@
+__jac_gen__/
+.mypy_cache/
+.vscode/
+__pycache__/
+.pytest_cache
+venv
+.env
